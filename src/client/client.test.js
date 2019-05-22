@@ -44,13 +44,11 @@ describe('namespaced moves', () => {
           A: () => 'A',
         },
 
-        flow: {
-          phases: {
-            PA: {
-              moves: {
-                B: () => 'B',
-                C: () => 'C',
-              },
+        phases: {
+          PA: {
+            moves: {
+              B: () => 'B',
+              C: () => 'C',
             },
           },
         },
@@ -94,13 +92,11 @@ describe('namespaced moves', () => {
           A: () => {},
         },
 
-        flow: {
-          phases: {
-            A: {
-              moves: {
-                B: () => {},
-                C: () => {},
-              },
+        phases: {
+          A: {
+            moves: {
+              B: () => {},
+              C: () => {},
             },
           },
         },
@@ -120,9 +116,7 @@ test('isActive', () => {
         A: (G, ctx, arg) => ({ arg }),
       },
 
-      flow: {
-        endGameIf: G => G.arg == 42,
-      },
+      endGameIf: G => G.arg == 42,
     }),
   });
 
@@ -144,10 +138,8 @@ describe('step', () => {
         },
       },
 
-      flow: {
-        endGameIf(G) {
-          if (G.moved) return true;
-        },
+      endGameIf(G) {
+        if (G.moved) return true;
       },
     }),
 
@@ -333,11 +325,9 @@ describe('event dispatchers', () => {
 
   test('all events', () => {
     const game = Game({
-      flow: {
-        endPhase: true,
-        endGame: true,
-        setActionPlayers: true,
-      },
+      endPhase: true,
+      endGame: true,
+      setActionPlayers: true,
     });
     const client = Client({ game });
     expect(Object.keys(client.events)).toEqual([
@@ -353,10 +343,8 @@ describe('event dispatchers', () => {
 
   test('no events', () => {
     const game = Game({
-      flow: {
-        endPhase: false,
-        endTurn: false,
-      },
+      endPhase: false,
+      endTurn: false,
     });
     const client = Client({ game });
     expect(Object.keys(client.events)).toEqual([]);
@@ -370,9 +358,7 @@ describe('move dispatchers', () => {
       B: (G, ctx) => ({ moved: ctx.playerID }),
       C: () => ({ victory: true }),
     },
-    flow: {
-      endGameIf: (G, ctx) => (G.victory ? ctx.currentPlayer : undefined),
-    },
+    endGameIf: (G, ctx) => (G.victory ? ctx.currentPlayer : undefined),
   });
   const reducer = CreateGameReducer({ game });
   const initialState = InitializeGame({ game });
