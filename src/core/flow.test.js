@@ -6,7 +6,6 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import Game from './game';
 import { InitializeGame, CreateGameReducer } from './reducer';
 import { makeMove, gameEvent, undo } from './action-creators';
 import { Flow, FlowWithPhases } from './flow';
@@ -338,13 +337,13 @@ test('endIf', () => {
   // Test that the turn automatically ends.
   {
     const flow = FlowWithPhases({ endIf: G => G.win });
-    const game = Game({
+    const game = {
       moves: {
         A: () => ({ win: 'A' }),
         B: G => G,
       },
       flow,
-    });
+    };
     const reducer = CreateGameReducer({ game });
     let state = InitializeGame({ game });
 
@@ -365,13 +364,13 @@ describe('turn.endIf', () => {
     const flow = FlowWithPhases({
       turn: { endIf: G => G.endTurn },
     });
-    const game = Game({
+    const game = {
       moves: {
         A: () => ({ endTurn: true }),
         B: G => G,
       },
       flow,
-    });
+    };
     const reducer = CreateGameReducer({ game });
 
     let state = InitializeGame({ game });
@@ -389,13 +388,13 @@ describe('turn.endIf', () => {
         A: { turn: { endIf: G => G.endTurn } },
       },
     });
-    const game = Game({
+    const game = {
       moves: {
         A: () => ({ endTurn: true }),
         B: G => G,
       },
       flow,
-    });
+    };
     const reducer = CreateGameReducer({ game });
 
     let state = InitializeGame({ game });
@@ -410,12 +409,12 @@ describe('turn.endIf', () => {
     const flow = FlowWithPhases({
       turn: { endIf: () => ({ next: '2' }) },
     });
-    const game = Game({
+    const game = {
       moves: {
         A: G => G,
       },
       flow,
-    });
+    };
     const reducer = CreateGameReducer({ game });
 
     let state = InitializeGame({ game, numPlayers: 3 });
@@ -530,7 +529,7 @@ describe('endTurn / endPhase args', () => {
 });
 
 test('undoable moves', () => {
-  const game = Game({
+  const game = {
     moves: {
       A: {
         impl: () => ({ A: true }),
@@ -550,7 +549,7 @@ test('undoable moves', () => {
       A: {},
       B: {},
     },
-  });
+  };
 
   const reducer = CreateGameReducer({ game });
 
@@ -620,9 +619,9 @@ test('endTurn is not called twice in one move', () => {
 });
 
 test('allPlayed', () => {
-  const game = Game({
+  const game = {
     moves: { A: () => ({ A: true }) },
-  });
+  };
 
   const reducer = CreateGameReducer({ game });
 

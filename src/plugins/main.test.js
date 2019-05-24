@@ -6,7 +6,6 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import Game from '../core/game';
 import { InitializeGame, CreateGameReducer } from '../core/reducer';
 import { makeMove } from '../core/action-creators';
 
@@ -16,7 +15,7 @@ describe('plugins', () => {
   let initialState;
 
   beforeAll(() => {
-    game = Game({
+    game = {
       moves: {
         A: (G, ctx) => ({ ...G, ctx }),
         B: G => {
@@ -43,7 +42,7 @@ describe('plugins', () => {
           },
         },
       ],
-    });
+    };
 
     reducer = CreateGameReducer({ game });
     initialState = InitializeGame({ game });

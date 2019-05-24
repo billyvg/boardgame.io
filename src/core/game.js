@@ -25,7 +25,7 @@ import { FlowWithPhases } from './flow';
  * action.args contain any additional arguments as an
  * Array.
  *
- * Game({
+ * ({
  *   name: 'tic-tac-toe',
  *
  *   setup: (numPlayers) => {
@@ -91,7 +91,11 @@ import { FlowWithPhases } from './flow';
  *                            setup: (G, ctx) => G,
  *                          }
  */
-function Game(game) {
+export function Game(game) {
+  if (game.processMove !== undefined) {
+    return game;
+  }
+
   if (game.name === undefined) game.name = 'default';
   if (game.setup === undefined) game.setup = () => ({});
   if (game.moves === undefined) game.moves = {};
@@ -157,5 +161,3 @@ function Game(game) {
     },
   };
 }
-
-export default Game;

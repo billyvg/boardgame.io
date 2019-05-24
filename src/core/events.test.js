@@ -8,7 +8,6 @@
 
 import { Events } from './events';
 import { makeMove } from './action-creators';
-import Game from './game';
 import { InitializeGame, CreateGameReducer } from './reducer';
 
 test('constructor', () => {
@@ -44,14 +43,14 @@ test('dispatch', () => {
 });
 
 test('update ctx', () => {
-  const game = Game({
+  const game = {
     moves: {
       A: (G, ctx) => {
         ctx.events.endTurn();
         return G;
       },
     },
-  });
+  };
   const reducer = CreateGameReducer({ game });
   let state = InitializeGame({ game });
   expect(state.ctx.turn).toBe(0);

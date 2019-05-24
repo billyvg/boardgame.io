@@ -6,7 +6,6 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import Game from '../core/game';
 import { InitializeGame } from '../core/reducer';
 import { MAKE_MOVE, GAME_EVENT } from '../core/action-types';
 import { makeMove } from '../core/action-creators';
@@ -39,7 +38,7 @@ function IsVictory(cells) {
   return false;
 }
 
-const TicTacToe = Game({
+const TicTacToe = {
   setup: () => ({
     cells: new Array(9).fill(null),
   }),
@@ -65,7 +64,7 @@ const TicTacToe = Game({
       return { draw: true };
     }
   },
-});
+};
 
 const enumerate = (G, ctx, playerID) => {
   let r = [];
@@ -141,7 +140,7 @@ describe('MCTSBot', () => {
   });
 
   test('game that never ends', () => {
-    const game = Game({});
+    const game = {};
     const state = InitializeGame({ game });
     const bot = new MCTSBot({ seed: 'test', game, enumerate: () => [] });
     const { state: endState } = Simulate({ game, bots: bot, state });

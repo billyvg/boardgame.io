@@ -7,24 +7,23 @@
  */
 
 import PluginPlayer from './plugin-player';
-import Game from '../core/game';
 import { InitializeGame, CreateGameReducer } from '../core/reducer';
 import { makeMove, gameEvent } from '../core/action-creators';
 
 describe('default values', () => {
   test('playerState is not passed', () => {
-    const game = Game({
+    const game = {
       plugins: [PluginPlayer],
-    });
+    };
     const state = InitializeGame({ game });
     expect(state.G).toEqual({ players: { '0': {}, '1': {} } });
   });
 
   test('playerState is passed', () => {
-    const game = Game({
+    const game = {
       playerSetup: () => ({ A: 1 }),
       plugins: [PluginPlayer],
-    });
+    };
     const state = InitializeGame({ game });
     expect(state.G).toEqual({ players: { '0': { A: 1 }, '1': { A: 1 } } });
   });
@@ -36,7 +35,7 @@ describe('2 player game', () => {
   let reducer;
 
   beforeAll(() => {
-    game = Game({
+    game = {
       moves: {
         A: G => {
           G.player.field = 'A1';
@@ -45,7 +44,7 @@ describe('2 player game', () => {
       },
 
       plugins: [PluginPlayer],
-    });
+    };
 
     reducer = CreateGameReducer({ game });
     state = InitializeGame({ game });
@@ -79,7 +78,7 @@ describe('3 player game', () => {
   let reducer;
 
   beforeAll(() => {
-    game = Game({
+    game = {
       moves: {
         A: G => {
           G.player.field = 'A';
@@ -88,7 +87,7 @@ describe('3 player game', () => {
       },
 
       plugins: [PluginPlayer],
-    });
+    };
 
     reducer = CreateGameReducer({ game });
     state = InitializeGame({ game, numPlayers: 3 });

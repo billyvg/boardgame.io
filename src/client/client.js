@@ -9,6 +9,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import * as Actions from '../core/action-types';
 import * as ActionCreators from '../core/action-creators';
+import { Game } from '../core/game';
 import { error } from '../core/logger';
 import { SocketIO } from './transport/socketio';
 import { Local, LocalMaster } from './transport/local';
@@ -92,7 +93,7 @@ class _ClientImpl {
     credentials,
     enhancer,
   }) {
-    this.game = game;
+    this.game = Game(game);
     this.playerID = playerID;
     this.gameID = gameID;
     this.credentials = credentials;

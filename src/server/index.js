@@ -10,6 +10,7 @@ const Koa = require('koa');
 
 import { addApiToServer, createApiServer } from './api';
 import { DBFromEnv } from './db';
+import { Game } from '../core/game';
 import * as logger from '../core/logger';
 import { SocketIO } from './transport/socketio';
 
@@ -41,6 +42,8 @@ export const createServerRunConfig = (portOrConfig, callback) => {
  */
 export function Server({ games, db, transport }) {
   const app = new Koa();
+
+  games = games.map(Game);
 
   if (db === undefined) {
     db = DBFromEnv();

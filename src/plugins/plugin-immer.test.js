@@ -6,7 +6,6 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import Game from '../core/game';
 import { InitializeGame, CreateGameReducer } from '../core/reducer';
 import { makeMove, gameEvent } from '../core/action-creators';
 
@@ -16,7 +15,7 @@ describe('immer', () => {
   let reducer;
 
   beforeAll(() => {
-    game = Game({
+    game = {
       moves: {
         A: G => {
           G.moveBody = true;
@@ -47,7 +46,7 @@ describe('immer', () => {
           G.onMove = true;
         },
       },
-    });
+    };
 
     state = InitializeGame({ game });
     reducer = CreateGameReducer({ game });
